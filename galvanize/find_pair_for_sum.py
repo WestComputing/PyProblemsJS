@@ -1,25 +1,20 @@
-""" var pair = findPairForSum([3, 34, 4, 12, 5, 2], 9);
-console.log(pair); // --> [4, 5]
-*/
-
-function findPairForSum(integers, target) {
-// your solution here
-}"""
+from typing import Optional, List, Tuple
 
 
-def find_pair_for_sum(integers, target):
+def find_pair_for_sum(integers: List[int], target: int) -> Optional[Tuple[int, int]]:
+    """
+    :param: List[int], int
+    :rtype: Tuple[int, int] or None
+    """
     # prune zero, negative numbers, numbers > target
-    for i in integers[:]:
-        if i < 0 or i > target:
-            integers.remove(i)
+    numbers = list(filter(lambda num: 0 < num < target, integers))
 
-    length = len(integers) - 1
-    for i in range(length - 1):
-        for j in range(length, i, -1):
-            result = (integers[i], integers[j])
-            if sum(result) == target: return list(result)
+    for i, num1 in enumerate(numbers[:-1]):
+        for num2 in numbers[i:]:
+            if num1 + num2 == target:
+                return num1, num2
     return None
 
 
 pair = find_pair_for_sum([3, 34, 4, 12, 5, 2], 9)
-print(pair)
+print(f"{pair} {'pass' if pair == (4, 5) else 'fail'}")
