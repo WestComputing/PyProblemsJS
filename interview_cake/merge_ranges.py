@@ -3,7 +3,7 @@ import unittest
 
 def merge_ranges(meetings):
 
-    meetings.sort(key=lambda times: times[1], reverse=True)
+    # meetings.sort(key=lambda times: times[1], reverse=True)
     meetings.sort(key=lambda times: times[0])
     meetings.append((0, 0))
 
