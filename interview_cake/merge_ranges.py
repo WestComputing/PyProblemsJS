@@ -2,10 +2,10 @@ import unittest
 
 
 def merge_ranges(meetings):
-    meetings.sort(key=lambda times: times[0])
+    meetings.sort()
     meetings.append((0, 0))
 
-    consolidated_schedule = []
+    merged_meetings = []
     new_start_time, new_end_time = meetings[0]
 
     for start_time, end_time in meetings:
@@ -13,10 +13,10 @@ def merge_ranges(meetings):
             if new_end_time < end_time:
                 new_end_time = end_time
         else:
-            consolidated_schedule.append((new_start_time, new_end_time))
+            merged_meetings.append((new_start_time, new_end_time))
             new_start_time, new_end_time = start_time, end_time
 
-    return consolidated_schedule
+    return merged_meetings
 
 
 # Tests
