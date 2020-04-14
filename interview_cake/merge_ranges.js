@@ -1,20 +1,19 @@
 function mergeRanges(meetings) {
 
     const consolidatedMeetings = [];
-    const sortedMeetings = meetings.sort((a, b) => a.startTime - b.startTime);
-    sortedMeetings.push({startTime: 0, endTime: 0});
+    meetings.sort((a, b) => a.startTime - b.startTime);
+    meetings.push({startTime: 0, endTime: 0});
 
     let newStartTime, newEndTime;
-    ({startTime: newStartTime, endTime: newEndTime} = sortedMeetings[0]);
-    sortedMeetings.forEach(({startTime, endTime}) => {
+    ({startTime: newStartTime, endTime: newEndTime} = meetings[0]);
+    meetings.forEach(({startTime, endTime}) => {
         if (startTime >= newStartTime && startTime <= newEndTime) {
             if (endTime > newEndTime) {
                 newEndTime = endTime;
             }
         } else {
             consolidatedMeetings.push({startTime: newStartTime, endTime: newEndTime});
-            newStartTime = startTime;
-            newEndTime = endTime;
+            [newStartTime, newEndTime] = [startTime, endTime];
         }
     });
 
