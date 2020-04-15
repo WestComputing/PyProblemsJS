@@ -3,7 +3,7 @@ import unittest
 
 def reverse(list_of_chars):
     for i in range(len(list_of_chars) // 2):
-        j = -i-1
+        j = -i - 1
         list_of_chars[i], list_of_chars[j] = list_of_chars[j], list_of_chars[i]
 
 
