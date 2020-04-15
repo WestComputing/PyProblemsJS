@@ -1,10 +1,27 @@
 import unittest
 
 
+def reverse_characters(characters, first_index, last_index):
+    while first_index < last_index:
+        characters[first_index], characters[last_index] \
+            = characters[last_index], characters[first_index]
+        first_index += 1
+        last_index -= 1
+
+
 def reverse_words(message):
-    temp = ' '.join(list(reversed(''.join(message).split(' '))))
-    for i, char in enumerate(temp):
-        message[i] = char
+    reverse_characters(message, 0, len(message) - 1)
+    word_index = 0
+    for i in range(len(message) + 1):
+        if i == len(message) or message[i] == ' ':
+            reverse_characters(message, word_index, i - 1)
+            word_index = i + 1
+
+
+# def reverse_words(message):
+#     temp = ' '.join(list(reversed(''.join(message).split(' '))))
+#     for i, char in enumerate(temp):
+#         message[i] = char
 
 
 # Tests
