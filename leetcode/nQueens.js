@@ -52,8 +52,7 @@ const solveNQueens = n => {
 
     }
 
-    const blankRow = Array(n).fill(BLANK);
-    const blankBoard = [...Array(n)].map(_ => blankRow.slice());
+    const blankBoard = Array(n).fill().map(() => Array(n).fill(BLANK));
     processRow(blankBoard);
     // console.log(boardSolutions);
     console.log(boardSolutions.length)
