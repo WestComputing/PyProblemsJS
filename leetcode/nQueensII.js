@@ -52,7 +52,7 @@ const totalNQueens = n => {
 
     }
 
-    const blankBoard = Array(n).fill().map(() => Array(n).fill(BLANK));
+    const blankBoard = [...Array(n)].map(() => Array(n).fill(BLANK));
     processRow(blankBoard);
     return numberSolutions;
 
