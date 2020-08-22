@@ -18,6 +18,19 @@ const renderBoard = permutation => {
 };
 
 
+const countDiagonals = permutation => {
+    let numberDiagonals = 0;
+    permutation.forEach(row => {
+        row.forEach(square => {
+            if (square !== BLANK) {
+                numberDiagonals++;
+            }
+        });
+    });
+    return numberDiagonals;
+};
+
+
 const isViable = (permutation, size) => {
     const row = permutation.length - 1;
     if (row > -1) {
@@ -64,10 +77,8 @@ const generatePermutations = (permutation, size, diagonals) => {
 const solve = (permutation, size, diagonals) => {
     if (isViable(permutation, size)) {
         if ((permutation.length === size) && (permutation[permutation.length - 1].length === size)) {
-            let placedDiagonals = 0;
-            permutation.forEach(row => {
-                placedDiagonals += size - row.filter(col => col === BLANK).length;
-            });
+            const placedDiagonals = countDiagonals(permutation);
+            // const placedDiagonals = permutation.flat().filter(square => square !== BLANK).length; // 7x slower
             if (placedDiagonals === diagonals) {
                 if (FIND_FIRST_SOLUTION) {
                     renderBoard(permutation);
@@ -85,9 +96,9 @@ const solve = (permutation, size, diagonals) => {
 
 
 console.time("runtime");
-// solve([[]], 3, 6);  // 7.5ms
-// solve([[]], 4, 10);  // 111ms
-solve([[]], 5, 16);  // 426ms first solution; 36s both solutions
+// solve([[]], 3, 6);  // 6.7ms 28 solutions
+// solve([[]], 4, 10);  // 82ms 108 solutions
+solve([[]], 5, 16);  // 354ms first solution; 29.5s both solutions
 console.timeEnd("runtime");
 SOLUTIONS.forEach(solution => renderBoard(solution));
 console.log(SOLUTIONS.length, "solutions");
