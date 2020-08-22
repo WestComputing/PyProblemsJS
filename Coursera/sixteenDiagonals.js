@@ -48,6 +48,19 @@ const isViable = (permutation, size) => {
     return true;
 };
 
+
+const generatePermutations = (permutation, size, diagonals) => {
+    if (permutation[permutation.length - 1].length === size) {
+        permutation.push([]);
+    }
+    [SLASH, BACKSLASH, BLANK].forEach(symbol => {
+        const newPermutation = copyPermutation(permutation);
+        newPermutation[newPermutation.length - 1].push(symbol);
+        solve(newPermutation, size, diagonals);
+    });
+};
+
+
 const solve = (permutation, size, diagonals) => {
     if (isViable(permutation, size)) {
         if ((permutation.length === size) && (permutation[permutation.length - 1].length === size)) {
@@ -70,17 +83,6 @@ const solve = (permutation, size, diagonals) => {
     }
 };
 
-
-const generatePermutations = (permutation, size, diagonals) => {
-    if (permutation[permutation.length - 1].length === size) {
-        permutation.push([]);
-    }
-    [SLASH, BACKSLASH, BLANK].forEach(symbol => {
-        const newPermutation = copyPermutation(permutation);
-        newPermutation[newPermutation.length - 1].push(symbol);
-        solve(newPermutation, size, diagonals);
-    });
-};
 
 console.time("runtime");
 // solve([[]], 3, 6);  // 7.5ms

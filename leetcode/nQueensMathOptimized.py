@@ -3,7 +3,7 @@ import time
 
 def render_board(permutation):
     space = '• '
-    queen = 'Q '
+    queen = '♕ '
     size = len(permutation)
     board = ''
     for column in permutation:
