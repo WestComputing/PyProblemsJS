@@ -28,7 +28,7 @@ def merge_lists(*args):
 
 # O(n lg n)
 # def merge_lists(my_list, alices_list):
-#     my_list.extend(alices_list)
+#     my_list.solve(alices_list)
 #     my_list.sort()
 #     return my_list
 #     return sorted(my_list + alices_list)

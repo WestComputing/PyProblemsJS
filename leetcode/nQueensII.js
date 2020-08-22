@@ -6,7 +6,7 @@ const totalNQueens = n => {
 
     const QUEEN = "Q";
     const BLANK = " ";
-    const ATTACKED = ".";
+    const ATTACKED = "•";
     let numberSolutions = 0;
 
     const copyBoard = board => board.slice().map(row => row.slice());
@@ -59,5 +59,10 @@ const totalNQueens = n => {
 };
 
 console.time('Runtime')
-totalNQueens(12); // 12 => 332ms
+// console.log(totalNQueens(8), "solutions"); // 10ms
+// totalNQueens(12); // 12 => 350ms
+// totalNQueens(13); // 13 => 1877ms
+// totalNQueens(14); // 14 => 11.6s
+// totalNQueens(15); // 15 => 75.8s
+console.log(totalNQueens(16), "solutions"); // 14,772,512 solutions  565s
 console.timeEnd('Runtime')

@@ -1,8 +1,19 @@
-def first_to_last(collection):
-    collection.append(collection.pop(0))
-    return collection
-
-
-print(first_to_last([1, 2, 3, 4]))
-print(first_to_last(["python", "is", "awesome"]))
-print(first_to_last(["strawberry", "kiwi", "mango", "guava"]))
+cards = [card for card in range(10, 100)]
+hand = []
+while cards:
+    card = cards.pop()
+    complement = 100 - card
+    complement_index = None
+    try:
+        complement_index = hand.index(complement)
+        continue
+    except ValueError:
+        pass
+    try:
+        complement_index = cards.index(complement)
+        cards.pop(complement_index)
+    except ValueError:
+        pass
+    hand.append(card)
+print(hand)
+print(len(hand), "cards")
