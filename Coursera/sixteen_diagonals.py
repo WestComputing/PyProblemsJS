@@ -58,8 +58,8 @@ def solve(permutation, size, diagonals):
                 if FIND_FIRST_SOLUTION:
                     render_board(permutation)
                     global start
-                    runtime = time.perf_counter() - start
-                    print(f"{runtime:0.4f} seconds")
+                    first_runtime = time.perf_counter() - start
+                    print(f"{first_runtime:0.4f} seconds")
                     exit()
                 else:
                     global SOLUTIONS
@@ -80,7 +80,7 @@ def generate_permutations(permutation, size, diagonals):
 start = time.perf_counter()
 # solve([[]], 3, 6)  # 350ms
 # solve([[]], 4, 10)  # 6s
-solve([[]], 5, 16)  # 30s first solution, 53m both solutions
+# solve([[]], 5, 16)  # 30s first solution, 19m both solutions
 runtime = time.perf_counter() - start
 for solution in SOLUTIONS:
     render_board(solution)
