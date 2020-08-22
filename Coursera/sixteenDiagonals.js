@@ -6,25 +6,17 @@ const FIND_FIRST_SOLUTION = false;
 const SOLUTIONS = [];
 
 
-const cloneDeep = original => {
-    const clone = [];
-    original.forEach(element => {
-        clone.push(element.slice());
-    });
-    return clone;
-}
+const copyPermutation = original => {
+    const copy = [];
+    original.forEach(element => copy.push(element.slice()));
+    return copy;
+};
 
 
 const renderBoard = permutation => {
-    let board = "";
-    permutation.forEach(row => {
-        row.forEach(col => {
-            board += col;
-        });
-        board += "\n";
-    });
-    console.log(board);
+    console.log(permutation.reduce((board, row) => board + row.join("") + "\n", ""));
 };
+
 
 const isViable = (permutation, size) => {
     const row = permutation.length - 1;
@@ -33,34 +25,22 @@ const isViable = (permutation, size) => {
         if (col > -1) {
             if (permutation[row][col] === SLASH) {
                 if (col) {
-                    if (permutation[row][col - 1] === BACKSLASH) {
-                        return false;
-                    }
-                    if (row) {
-                        if (permutation[row - 1][col] === BACKSLASH) {
-                            return false;
-                        }
-                        if (permutation[row - 1][col + 1] === SLASH) {
-                            return false;
-                        }
-                    }
+                    if (permutation[row][col - 1] === BACKSLASH) return false;
+                }
+                if (row) {
+                    if (permutation[row - 1][col] === BACKSLASH) return false;
+                    if (permutation[row - 1][col + 1] === SLASH) return false;
                 }
             }
             if (permutation[row][col] === BACKSLASH) {
                 if (col) {
-                    if (permutation[row][col - 1] === SLASH) {
-                        return false;
-                    }
+                    if (permutation[row][col - 1] === SLASH) return false;
                     if (row) {
-                        if (permutation[row - 1][col - 1] === BACKSLASH) {
-                            return false;
-                        }
+                        if (permutation[row - 1][col - 1] === BACKSLASH) return false;
                     }
                 }
                 if (row) {
-                    if (permutation[row - 1][col] === SLASH) {
-                        return false;
-                    }
+                    if (permutation[row - 1][col] === SLASH) return false;
                 }
             }
         }
@@ -81,7 +61,7 @@ const solve = (permutation, size, diagonals) => {
                     console.timeEnd("runtime");
                     process.exit(0);
                 } else {
-                    SOLUTIONS.push(cloneDeep(permutation));
+                    SOLUTIONS.push(copyPermutation(permutation));
                 }
             }
         } else {
@@ -92,20 +72,20 @@ const solve = (permutation, size, diagonals) => {
 
 
 const generatePermutations = (permutation, size, diagonals) => {
-    if (permutation[permutation.length-1].length === size) {
+    if (permutation[permutation.length - 1].length === size) {
         permutation.push([]);
     }
     [SLASH, BACKSLASH, BLANK].forEach(symbol => {
-        const newPermutation = cloneDeep(permutation);
+        const newPermutation = copyPermutation(permutation);
         newPermutation[newPermutation.length - 1].push(symbol);
         solve(newPermutation, size, diagonals);
     });
 };
 
 console.time("runtime");
-solve([[]], 3, 6);  // 8.9ms
-// solve([[]], 4, 10);  // 150ms
-// solve([[]], 5, 16);  // 4ms first solution;
+// solve([[]], 3, 6);  // 7.5ms
+// solve([[]], 4, 10);  // 111ms
+solve([[]], 5, 16);  // 426ms first solution; 36s both solutions
 console.timeEnd("runtime");
 SOLUTIONS.forEach(solution => renderBoard(solution));
 console.log(SOLUTIONS.length, "solutions");
